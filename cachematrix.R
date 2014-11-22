@@ -8,6 +8,7 @@
 
 makeCacheMatrix <- function(x = matrix()) {
 
+  ## Initialize variable i to store the inverse matrix
   i <- NULL
   
   set <- function(y) {
@@ -15,10 +16,16 @@ makeCacheMatrix <- function(x = matrix()) {
     i <<- NULL
   }
   
+  ## Define get function for cacheMatrix to get the original matrix
   get <- function() x
+  
+  ## Set i with the value of the inversed matrix
   setinverse <- function(inverse) i <<- inverse
+  
+  ## Define get function to get value of inversed matrix
   getinverse <- function() i
   
+  ## define list of methods of object x
   list(set = set, get = get,
        setinverse = setinverse,
        getinverse = getinverse)
@@ -31,31 +38,27 @@ makeCacheMatrix <- function(x = matrix()) {
 ## (and the matrix has not changed), then cacheSolve should retrieve the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
-  
-  ## Check if matrix value has been changed
-  
-  ## Check if matrix has already been calculated
-  
-  ## If matrix has been calculated, return inverse from cache
-  
-  ## Else, inverse the x, cache it, and return inverse 
-  
-        ## Return a matrix that is the inverse of 'x'
-  
-  cachemean <- function(x, ...) {
-    i <- x$getinversea()
     
+    ## initialize i with the inversed value of object x
+    i <- x$getinverse()
+    
+    
+    ## check if inversed value is NULL, return i if NULL is false, else perform inverse
     if(!is.null(i)) {
       message("getting cached data")
       return(i)
     }
     
+    ## get original matrix
     data <- x$get()
     
+    ## inverse original matrix
     i <- solve(data, ...)
     
+    ## set value of i to inversed matrix
     x$setinverse(i)
     
+    ## Return a matrix that is the inverse of 'x'
     i
   }
   
